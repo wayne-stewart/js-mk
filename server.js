@@ -12,9 +12,13 @@ const PORT = 8080;
 
 var handleRequest = function(request, response) {
     console.log("REQUEST: " + request.url);
-    fs.readFile(__dirname + request.url, function(error, data){
-        response.end(data);
-    });
+    // setTimeout to test progress bar
+    //var timeout = Math.random() * 2000;
+    //setTimeout(function(){
+        fs.readFile(__dirname + request.url, function(error, data){
+            response.end(data);
+        });
+    //}, timeout);
 };
 
 var server = http.createServer(handleRequest);

@@ -8,6 +8,16 @@ var Game = function() {
     var player1 = new Player(canvas, ctx, assets);
     var player2 = null;
 
+    var drawProgress = function(p) {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0,0,canvas.width, canvas.height); 
+        ctx.fillStyle = "#000000";
+        //ctx.fillText(p.toString(), canvas.width/2, canvas.height/2);
+        ctx.strokeStyle = "#000000";
+        ctx.strokeRect(canvas.width * 0.1, canvas.height / 2 - 10, canvas.width * 0.8, 20);
+        ctx.fillRect(canvas.width * 0.1, canvas.height / 2 - 10, canvas.width * 0.8 * p, 20);
+    };
+
     this.start = function() {
         canvas.width = document.body.clientWidth;
         canvas.height = document.body.clientHeight;
@@ -16,6 +26,10 @@ var Game = function() {
         document.addEventListener("keydown", onKeyDown, false);
         document.addEventListener("keyup", onKeyUp, false);
 
+        drawProgress(0);
+        assets.progress(function(p){ 
+            drawProgress(p);
+        });
         var loaderPromise = assets.loadAllAsync(AssetManifest);
         loaderPromise.then(function(result) {
 
